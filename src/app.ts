@@ -14,6 +14,17 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
+// Add a root route handler
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'API is running',
+    endpoints: {
+      campaigns: '/campaigns',
+      personalizedMessage: '/personalized-message'
+    }
+  });
+});
+
 app.use('/campaigns', campaignRoutes);
 app.use('/personalized-message', messageRoutes);
 
@@ -25,4 +36,4 @@ mongoose.connect(process.env.MONGODB_URI as string)
   })
   .catch((err) => {
     console.error('MongoDB connection error:', err);
-  }); 
+  });
